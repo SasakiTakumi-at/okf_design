@@ -12,6 +12,8 @@
 │   ├── SPEC.md #OKFの標準仕様
 │   ├── ARCHITECTURE.md #リポジトリの構造説明
 │   ├── DEVELOPMENT_GUIDE.md #開発ルール
+│   ├── GLOSSARY.md　#用語集
+│   ├── NAME_RULE.md　#命名規則
 │   ├── LOG.md #変更履歴
 │   └── README.md #docsの入口
 │
@@ -23,7 +25,7 @@
 │   ├── cisco/ cisco独自のreference
 │   │   ├── nxos_command_reference.md #AIが参照するnxosのSource of Truth
 │   │   └── iosxe_command_reference.md #AIが参照するiosxeのSource of Truth
-│   └── Arista/ arista独自のreference
+│   └── arista/ arista独自のreference
 │       └── eos_command_reference.md #AIが参照するeosのSource of Truth
 │
 ├── template/ #生成物の雛形
