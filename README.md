@@ -34,12 +34,12 @@
 │   └── robot_template.md #生成するRobotframeworkのFormat
 │
 ├── okf_repos_at/ #ATが蓄積していくKnowledge
-│   ├── okf_repos_at/リポジトリのカタログ
+│   ├── INDEX.md #okf_repos_at/リポジトリのカタログ
 │   ├── testcase/ #実施されたテスト記録
 │   └── incident/ #発生したインシデント記録
 │
 ├── okf_repos/ #一般化して蓄積していくKnowledge
-│   ├── okf_repos/リポジトリのカタログ
+│   ├── INDEX.md #okf_repos/リポジトリのカタログ
 │   ├── workflows/
 │   ├── tools/
 │   ├── references/
