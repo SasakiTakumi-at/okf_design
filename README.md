@@ -2,7 +2,7 @@
 Open Knowledge Format（OKF）を、LLM / Agentが継続利用する外部メモリーの保存・整理形式として活用するための設計・運用上の知見をまとめた資料です。
 
 ## Repository Guide
-このリポジトリは、目的別に8つの領域へ分けています。
+このリポジトリは、目的別に4つの領域へ分けています。
 
 ```text
 .
@@ -14,20 +14,8 @@ Open Knowledge Format（OKF）を、LLM / Agentが継続利用する外部メモ
 ├── instructions/
 │   └── LLM / Agentへ与えるカスタム指示・定期整理プロンプト
 │
-├── device_docs/
-│   └── 各ベンダー機器Knowledge
-│
-├── template/ 
-│   └── 生成物の雛形
-│
-├── okf_repos_at/
-│   └── AT専用Knowledge
-│
-├── okf_repos/
-│   └── 一般化Knowledge
-│
-├── memory/
-│   └── 固有の現在状態・重要な遷移
+├── okf_repository/
+│   └── OKF外部メモリーのリポジトリ構成例
 │
 └── core/
     └── ネットワーク検証自動化プラットフォーム
@@ -35,21 +23,155 @@ Open Knowledge Format（OKF）を、LLM / Agentが継続利用する外部メモ
 ```
 ### docs/
 OKFをどのように設計し、どのように運用しているかを説明する資料です。
+ - [AGENTS.md](./docs/AGENTS.md)
+ - [INDEX.md](./docs/INDEX.md)
+ - [ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+ - [DEVELOPMENT_GUIDE.md](./docs/DEVELOPMENT_GUIDE.md)
+ - [SPEC.md](./docs/SPEC.md)
+ - [GLOSSARY.md](./docs/GLOSSARY.md)
+ - [NAME_RULE.md](./docs/NAME_RULE.md)
+ - [README.md](./docs/README.md)
 
 ### instructions/
 LLM / Agentへ与える運用指示です。
+ - [INDEX.md](./instructions/INDEX.md)
 
-### device_docs/
-各ベンダーごとの機器に使用するコマンドリファレンスです。
+### okf_repository/
+OKFを使った外部メモリー用Gitリポジトリの構成例です。
+ - [README.md](./okf_repository/README.md)
+ - [device_docs/](./okf_repository/device_docs/)
+    - [INDEX.md](./okf_repository/device_docs/INDEX.md)
+    - [nxos_command_reference.md](./okf_repository/device_docs/cisco/nxos_command_reference.md)
+    - [iosxe_command_reference.md](./okf_repository/device_docs/cisco/iosxe_command_reference.md)
+    - [eos_command_reference.md](./okf_repository/device_docs/arista/eos_command_reference.md)
 
-### template/
-作成するPython / Robotframework ファイルと実行した testcase に対する結果/インシデント記録のテンプレートです。
+ - [template/](./okf_repository/template/)
+    - [INDEX.md](./okf_repository/template/INDEX.md)
+    - [testcase_template.md](./okf_repository/template/testcase_template.md)
+    - [incident_template.md](./okf_repository/template/incident_template.md)
+    - [python_template.md](./okf_repository/template/python_template.md)
+    - [robot_template.md](./okf_repository/template/robot_template.md)
 
-### okf_repos_at/
-OKFを使った AT 専用 Git リポジトリの構成例です。
+ - [knowledge_at/](./okf_repository/knowledge_at/)
+    - [INDEX.md](./okf_repository/knowledge_at/INDEX.md)
+    - [scenario/](./okf_repository/knowledge_at/scenario/)
+    - [testcases/](./okf_repository/knowledge_at//testcases/)
+    - [incidents/](./okf_repository/knowledge_at//incidents/)
 
-### okf_repos/
-OKFを使った一般化用 Git リポジトリの構成例です。
+ - [knowledge/](./okf_repository/knowledge/)
+    - [INDEX.md](./okf_repository/knowledge//INDEX.md)
+    - [workflows/](./okf_repository/knowledge/workflows/)
+    - [tools/](./okf_repository/knowledge/tools/)
+
+ - [memory/](./okf_repository/memory/)
+    - [state.md](./okf_repository/memory/state/)
+    - [events](./okf_repository/memory/events/)
 
 ### core/
 作成したPython / Robotframework ファイルを実行するためのネットワーク検証自動化プラットフォームです。
+ - [core/](./core/)
+
+ ## Background
+LLMを長期間利用すると、同じテーマが複数の会話やツールにまたがり、現在状態・決定事項・数値・構成・次回開始点などを再説明する必要が生じます。  
+この運用では、会話全文そのものを記憶として保存するのではなく、
+
+> **次回、正確に作業を再開するために必要な現在状態**
+
+を外部へ保存します。  
+さらに、そこから得られた再利用可能な原則・手順・検証知識は、現在状態とは分離して Knowledge として保存します。
+
+## Architecture
+基本構成は、1つのGitリポジトリ内に用途の異なる5つの OKF Bundle を配置する方式です。
+
+```text
+External Memory Repository
+│
+├── device_docs/ 
+│   ├── INDEX.md 
+│   ├── cisco/ 
+│   │   ├── nxos_command_reference.md 
+│   │   └── iosxe_command_reference.md 
+│   └── arista/ 
+│       └── eos_command_reference.md 
+│
+├── template/ 
+│   ├── INDEX.md 
+│   ├── testcase_template.md 
+│   ├── incident_template.md 
+│   ├── python_template.md 
+│   └── robot_template.md 
+│
+├── Knowledge_at/ 
+│   ├── INDEX.md 
+│   ├── scenario/ 
+│   ├── testcases/ 
+│   └── incidents/ 
+│
+├── Knowledge/ 
+│   ├── INDEX.md 
+│   ├── workflows/
+│   └── tools/
+│
+└── memory/ 
+    ├── state/ 
+    └── events/ 
+```
+
+Memoryでは、
+
+- **Memory State** = 現在のSource of Truth
+- **Memory Event** = 独立して残す価値がある重要な状態遷移
+
+を区別します。
+
+## 利用サイクル
+
+必要な情報だけを参照し、作業によって生じた変化をMemory・Device_docs・Knowledge・Knowledge_at・Templateへ反映します。
+
+```mermaid
+flowchart LR
+    A[開始] --> B[必要情報を選択]
+    B --> C[State / Device_docs / Knowledge / Knowledge_at / Template参照]
+    C --> D[回答・作業]
+    D --> E{新しい情報?}
+
+    E -- いいえ --> Z[次回再開]
+    E -- はい --> F{継続に必要?}
+
+    F -- はい --> G[Memory更新]
+    F -- いいえ --> H{再利用可能?}
+
+    G --> H
+    H -- はい --> I{Device_docs統合?}
+    H -- いいえ --> J[保存しない]
+
+    I -- はい --> K[Device_docs統合]
+    I -- いいえ --> L[Device_docs統合しない]
+
+    K --> M{knowledge統合?}
+    L --> M
+
+    M -- はい --> N[knowledge統合]
+    M -- いいえ --> O[knowledge統合しない]
+
+    N --> P{knowledge_at統合?}
+    O --> P
+
+    P -- はい --> Q[knowledge_at統合]
+    P -- いいえ --> R[knowledge_at統合しない]
+
+    Q --> S[Template統合?]
+    R --> S
+
+    S -- はい --> T[Template統合]
+    S -- いいえ --> U[Template統合しない]
+
+    G --> V[Git記録]
+    T --> V
+    U --> V
+    J --> Z
+    V --> Z
+    
+```
+
+Memoryには現在状態を、Knowledgeには固有の状態から切り離して再利用できる知識を保持します。過去の細かな変更はGit履歴へ委ね、現在利用する情報をSource of Truthとして維持します。
