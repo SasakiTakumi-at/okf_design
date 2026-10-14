@@ -1,58 +1,55 @@
-# okf_design
+# OKF_Design
+Open Knowledge Format（OKF）を、LLM / Agentが継続利用する外部メモリーの保存・整理形式として活用するための設計・運用上の知見をまとめた資料です。
 
-## OKF構成案
+## Repository Guide
+このリポジトリは、目的別に8つの領域へ分けています。
 
 ```text
 .
-├── README.md #プロジェクトの入口
+├── README.md プロジェクトの入口
 │
-├── docs/ #リポジトリ全体の運用・設計・仕様を管理するエリア
-│   ├── AGENTS.md #AIエージェント向け運用ルール
-│   ├── INDEX.md #リポジトリ全体のカタログ
-│   ├── SPEC.md #OKFの標準仕様
-│   ├── ARCHITECTURE.md #リポジトリの構造説明
-│   ├── DEVELOPMENT_GUIDE.md #開発ルール
-│   ├── GLOSSARY.md　#用語集
-│   ├── NAME_RULE.md　#命名規則
-│   └── README.md #docsの入口
+├── docs/ 
+│   └── リポジトリ全体の運用・設計・仕様を管理するエリア
 │
 ├── instructions/
 │   └── LLM / Agentへ与えるカスタム指示・定期整理プロンプト
 │
-├── device_docs/ #ベンダーナレッジ専用領域
-│   ├── INDEX.md #device_docs/リポジトリのカタログ
-│   ├── cisco/ cisco独自のreference
-│   │   ├── nxos_command_reference.md #AIが参照するnxosのSource of Truth
-│   │   └── iosxe_command_reference.md #AIが参照するiosxeのSource of Truth
-│   └── arista/ arista独自のreference
-│       └── eos_command_reference.md #AIが参照するeosのSource of Truth
+├── device_docs/
+│   └── 各ベンダー機器Knowledge
 │
-├── template/ #生成物の雛形
-│   ├── INDEX.md #template/リポジトリのカタログ
-│   ├── testcase_template.md #実施されたテスト記録Format
-│   ├── incident_template.md #発生したインシデント記録Format
-│   ├── python_template.md #生成するPythonファイルのFormat
-│   └── robot_template.md #生成するRobotframeworkのFormat
+├── template/ 
+│   └── 生成物の雛形
 │
-├── okf_repos_at/ #ATが蓄積していくKnowledge
-│   ├── INDEX.md #okf_repos_at/リポジトリのカタログ
-│   ├── scenario/ #作成したPythonファイルとRobotframeworkファイル
-│   ├── testcase/ #実施されたテスト記録
-│   └── incident/ #発生したインシデント記録
+├── okf_repos_at/
+│   └── AT専用Knowledge
 │
-├── okf_repos/ #一般化して蓄積していくKnowledge
-│   ├── INDEX.md #okf_repos/リポジトリのカタログ
-│   ├── workflows/
-│   ├── tools/
-│   ├── references/
-│   ├── experiments/
-│   └── decisions/
+├── okf_repos/
+│   └── 一般化Knowledge
 │
-├── memory/ # 固有の現在状態・重要な遷移
-│   ├── state/ #継続作業で「今どうなっているか」を確認するための文書
-│   └── events/ #工程完了、方針変更、重要な検証結果など
+├── memory/
+│   └── 固有の現在状態・重要な遷移
 │
 └── core/
-    ├──
-    ├──  
+    └── ネットワーク検証自動化プラットフォーム
+
 ```
+### docs/
+OKFをどのように設計し、どのように運用しているかを説明する資料です。
+
+### instructions/
+LLM / Agentへ与える運用指示です。
+
+### device_docs/
+各ベンダーごとの機器に使用するコマンドリファレンスです。
+
+### template/
+作成するPython / Robotframework ファイルと実行した testcase に対する結果/インシデント記録のテンプレートです。
+
+### okf_repos_at/
+OKFを使った AT 専用 Git リポジトリの構成例です。
+
+### okf_repos/
+OKFを使った一般化用 Git リポジトリの構成例です。
+
+### core/
+作成したPython / Robotframework ファイルを実行するためのネットワーク検証自動化プラットフォームです。
