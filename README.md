@@ -36,6 +36,7 @@
 │
 ├── okf_repos_at/ #ATが蓄積していくKnowledge
 │   ├── INDEX.md #okf_repos_at/リポジトリのカタログ
+│   ├── scenario/ #作成したPythonファイルとRobotframeworkファイル
 │   ├── testcase/ #実施されたテスト記録
 │   └── incident/ #発生したインシデント記録
 │
