@@ -14,7 +14,6 @@
 │   ├── DEVELOPMENT_GUIDE.md #開発ルール
 │   ├── GLOSSARY.md　#用語集
 │   ├── NAME_RULE.md　#命名規則
-│   ├── LOG.md #変更履歴
 │   └── README.md #docsの入口
 │
 ├── instructions/
