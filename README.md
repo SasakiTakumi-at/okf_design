@@ -60,11 +60,15 @@ OKFを使った外部メモリー用Gitリポジトリの構成例です。
 
  - [knowledge/](./okf_repository/knowledge/)
     - [INDEX.md](./okf_repository/knowledge//INDEX.md)
+    - [concepts/](./okf_repository/knowledge/concepts/)
     - [workflows/](./okf_repository/knowledge/workflows/)
     - [tools/](./okf_repository/knowledge/tools/)
+    - [references/](./okf_repository/knowledge/references/)
+    - [experiments/](./okf_repository/knowledge/experiments/)
+    - [decisions/](./okf_repository/knowledge/decisions/)
 
  - [memory/](./okf_repository/memory/)
-    - [state.md](./okf_repository/memory/state/)
+    - [state](./okf_repository/memory/state/)
     - [events](./okf_repository/memory/events/)
 
 ### core/
@@ -109,8 +113,12 @@ External Memory Repository
 │
 ├── Knowledge/ 
 │   ├── INDEX.md 
+│   ├── concepts/
 │   ├── workflows/
-│   └── tools/
+│   ├── tools/
+│   ├── references/
+│   ├── experiments/
+│   └── decisions/
 │
 └── memory/ 
     ├── state/ 

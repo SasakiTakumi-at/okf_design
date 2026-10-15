@@ -45,8 +45,12 @@
 │   │
 │   ├── Knowledge/ #一般化して蓄積していくKnowledge
 │   │   ├── INDEX.md #リポジトリのカタログ
-│   │   ├── workflows/
-│   │   └── tools/
+│   │   ├── concepts/ #理解するための知識
+│   │   ├── workflows/ #作業手順
+│   │   ├── tools/ #実装方法
+│   │   ├── references/ #正解ソース
+│   │   ├── experiments/ #過去事例
+│   │   └── decisions/ #判断理由
 │   │
 │   └── memory/ # 固有の現在状態・重要な遷移
 │       ├── state/ #継続作業で「今どうなっているか」を確認するための文書
