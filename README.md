@@ -182,4 +182,58 @@ flowchart LR
     
 ```
 
-Memoryには現在状態を、Knowledgeには固有の状態から切り離して再利用できる知識を保持します。過去の細かな変更はGit履歴へ委ね、現在利用する情報をSource of Truthとして維持します。
+Memoryには現在状態を、Knowledgeには固有の状態から切り離して再利用できる知識を保持します。  
+過去の細かな変更はGit履歴へ委ね、現在利用する情報をSource of Truthとして維持します。
+
+## Design Principles
+この構成では、OKFだけで「記憶機能」が成立すると考えているわけではありません。  
+OKFは外部メモリーの保存・分類・参照単位として利用し、以下を組み合わせて運用します。
+
+ - State / Event / Knowledge / Knowledge_at / Device_docs / Templateの責務分離
+ - Indexを使った段階的なContext選択
+ - 保存するかどうかの判断ルール
+ - Read / Writeフロー
+ - Gitによる履歴・差分管理
+ - 定期的な統合・重複整理
+ - 秘密情報や不要情報を保存しないルール
+
+また、Git履歴から過去状態を確認できるため、現行ファイルへ変更履歴を無制限に蓄積しません。  
+現在の作業継続・判断・再利用に不要になった重複情報は統合・整理し、現在のSource of Truthを正確に保つことを優先します。
+
+## Scope
+この資料で扱うもの:
+
+ - OKFを利用した外部メモリー構成
+ - Memory State / Memory Event / Knowledge / Knowledge_at / Device_docs / Template
+ - Read / Writeのデータフロー
+ - Gitを利用した履歴管理
+ - 保存・統合・整理の運用ルール
+ - LLM / Agentへ与える指示
+ - OKFリポジトリの構成例
+ - 運用から得られた効果と課題
+
+扱わないもの:
+
+ - OKF仕様そのものの詳細解説
+ - そのままシステムへ導入できる完成済み実装
+
+## Recommended Reading Order
+初めて見る場合は、次の順で確認すると全体像を追いやすくなります。
+
+1. [AGENTS.md](./docs/AGENTS.md)
+2. [README.md](./docs/README.md)
+3. [INDEX.md](./docs/INDEX.md)
+4. [ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+5. [SPEC.md](./docs/SPEC.md)
+6. [DEVELOPMENT_GUIDE.md](./docs/DEVELOPMENT_GUIDE.md)
+7. [NAME_RULE.md](./docs/NAME_RULE.md)
+8. [GLOSSARY.md](./docs/GLOSSARY.md)
+
+## Positioning
+
+この資料は、OKFの仕様紹介そのものではなく、
+
+> **外部メモリーという仕組みの中で、OKFをどのように利用・運用するか**
+
+を示すためのものです。  
+プロジェクト・システム・環境などのState管理へ応用する際の参考資料として利用できる構成を意図しています。
